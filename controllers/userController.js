@@ -7,7 +7,7 @@ const userRegister = async (request, response) => {
     try {
         const dbUsername = await User.findOne({username});
         if(dbUsername){
-            response.status(400).json(("Username already taken"));
+            return response.status(400).json(("Username already taken"));
         }
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -23,4 +23,15 @@ const userRegister = async (request, response) => {
     }
 }
 
-module.exports = {userRegister}
+const userLogin = async(request,response) => {
+    const {username, password} = request.body;
+    try {
+        const user = await User.findOne({username})
+        console.log(user)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+module.exports = {userRegister, userLogin}
