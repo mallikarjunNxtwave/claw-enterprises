@@ -8,7 +8,7 @@ const userRegister = async (request, response) => {
     try {
         const dbUsername = await User.findOne({username});
         if(dbUsername){
-            return response.status(400).json(("Username already taken"));
+            return response.status(400).json({message: "username already taken"});
         }
         const hashedPassword = await bcrypt.hash(password, 10);
 
