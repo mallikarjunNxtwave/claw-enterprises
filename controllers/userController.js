@@ -5,11 +5,12 @@ const jwt = require('jsonwebtoken');
 const userRegister = async (request, response) => {
     const {username, email, password} = request.body;
     try {
-        const userEmail = await User.findOne({username});
-        if(username){
+        const dbUsername = await User.findOne({username});
+        if(dbUsername){
             response.status(400).json(("Username already taken"));
         }
         const hashedPassword = await bcrypt.hash(password, 10);
+
         const newUser = new User({
             username,
             email,
