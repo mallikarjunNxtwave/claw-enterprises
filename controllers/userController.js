@@ -28,7 +28,7 @@ const userLogin = async(request,response) => {
     try {
         const user = await User.findOne({username})
         console.log(user)
-        response.status(200).json({message: "working"})
+        response.status(200).json({message: user})
     } catch (error) {
         console.log(error)
         response.status(400).json({error: error.message})
