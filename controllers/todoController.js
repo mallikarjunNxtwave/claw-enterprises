@@ -26,8 +26,9 @@ const createTodo = async (request, response) => {
 const updateTodo = async (request, response) => {
     const { id } = request.params;
     const { todoHeading, todoDescription, completed } = request.body
+    const createdDate = new Date();
     try {
-        await Todo.findOneAndUpdate({ _id: id }, { todoHeading, todoDescription, completed })
+        await Todo.findOneAndUpdate({ _id: id }, { todoHeading, todoDescription, createdDate, completed })
         response.status(200).json({ message: "Todo Updated Successfully" })
     } catch (error) {
         response.status(200).json({ Error: error })
