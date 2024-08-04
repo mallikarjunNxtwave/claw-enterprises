@@ -6,6 +6,7 @@ const { request } = require('express');
 
 
 const createTodo = async (request, response) => {
+    console.log("hits")
     const { username, todoHeading, todoDescription, completed } = request.body
     const createdDate = new Date();
     try {
@@ -22,6 +23,16 @@ const createTodo = async (request, response) => {
         response.status(400).json({ Error: error.message })
     }
 }
+
+const getTodos = async (request,response) => {
+    const {username} = request.params
+    try {
+        const allTodos = await Todo.find({username});
+        response.status(200).json({todos: allTodos})
+    } catch (error) {
+        response.status(400).json({message: "Can`t get todos try again"})
+    }
+} 
 
 const updateTodo = async (request, response) => {
     const { id } = request.params;
@@ -48,4 +59,4 @@ const deleteTodo = async (request, response) => {
 
 }
 
-module.exports = { createTodo, deleteTodo, updateTodo };
+module.exports = { createTodo, deleteTodo, updateTodo, getTodos };

@@ -38,9 +38,9 @@ const userLogin = async(request,response) => {
                 const payload = {
                     username,
                 }
-                // console.log(process.env.SECRET_KEY);
+                
                 const jwtToken = jwt.sign(payload, await process.env.SECRET_KEY)
-                response.status(200).json({jwtToken,userId: user._id});
+                response.status(200).json({jwtToken,user_id: user._id,username: user.username});
                 
             }else {
                 response.status(400).json({message: "Invalid Password"})
